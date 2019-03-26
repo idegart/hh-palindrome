@@ -15,8 +15,8 @@
 
 <div id="app" class="container vh-100 d-flex align-items-center justify-content-center">
 
-    <div class="row">
-        <div class="col-12 col-sm-12">
+    <div class="row w-100 justify-content-center">
+        <div class="col-12 col-md-6">
             <search-component />
         </div>
     </div>

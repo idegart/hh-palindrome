@@ -4,7 +4,7 @@
             <input type="text"
                    v-model="q"
                    :readonly="loading"
-                   class="form-control"
+                   :class="`form-control ${$v.q.$dirty ? $v.q.$error ? 'is-invalid' : 'is-valid' : ''}`"
                    placeholder="Введите Вашу строку">
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary d-flex align-items-center"
@@ -15,10 +15,10 @@
                     <span>Поиск</span>
                 </button>
             </div>
+            <div class="invalid-feedback">
+                Данное поле должно быть строкой от 1 до 250 симвалов!
+            </div>
         </div>
-        <p class="text-danger">
-            Данное поле должно быть строкой от 1 до 250 симвалов!
-        </p>
     </form>
 </template>
 
@@ -59,8 +59,9 @@
                 window.axios.post('/api/palindrome', {
                     q: this.q
                 })
-
-                // this.$emit('updateResults', [])
+                    .then(({data}) => {
+                        this.$emit('updateResults', data.data)
+                    })
             }
         },
     }

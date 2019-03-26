@@ -1725,6 +1725,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     submitForm: function submitForm() {
+      var _this = this;
+
       this.$v.$touch();
 
       if (this.$v.$invalid) {
@@ -1734,7 +1736,11 @@ __webpack_require__.r(__webpack_exports__);
       this.loading = true;
       window.axios.post('/api/palindrome', {
         q: this.q
-      }); // this.$emit('updateResults', [])
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.$emit('updateResults', data.data);
+      });
     }
   }
 });
@@ -1821,6 +1827,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _InputComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./InputComponent */ "./resources/js/components/InputComponent.vue");
 /* harmony import */ var _ResultsListComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ResultsListComponent */ "./resources/js/components/ResultsListComponent.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -36911,7 +36922,13 @@ var render = function() {
           directives: [
             { name: "model", rawName: "v-model", value: _vm.q, expression: "q" }
           ],
-          staticClass: "form-control",
+          class:
+            "form-control " +
+            (_vm.$v.q.$dirty
+              ? _vm.$v.q.$error
+                ? "is-invalid"
+                : "is-valid"
+              : ""),
           attrs: {
             type: "text",
             readonly: _vm.loading,
@@ -36946,13 +36963,13 @@ var render = function() {
               _c("span", [_vm._v("Поиск")])
             ]
           )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "invalid-feedback" }, [
+          _vm._v(
+            "\n            Данное поле должно быть строкой от 1 до 250 симвалов!\n        "
+          )
         ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "text-danger" }, [
-        _vm._v(
-          "\n        Данное поле должно быть строкой от 1 до 250 симвалов!\n    "
-        )
       ])
     ]
   )
@@ -37051,10 +37068,14 @@ var render = function() {
     [
       _c("input-component", {
         ref: "inputComponent",
+        staticClass: "w-100",
         on: { updateResults: _vm.setResults }
       }),
       _vm._v(" "),
-      _c("results-list-component", { attrs: { results: _vm.results } })
+      _c("results-list-component", {
+        staticClass: "mt-3",
+        attrs: { results: _vm.results }
+      })
     ],
     1
   )

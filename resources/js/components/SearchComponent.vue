@@ -1,9 +1,14 @@
 <template>
     <div>
 
-        <input-component ref="inputComponent" @updateResults="setResults" />
+        <input-component ref="inputComponent"
+                         @updateResults="setResults"
+                         class="w-100"
+        />
 
-        <results-list-component :results="results" />
+        <results-list-component :results="results"
+                                class="mt-3"
+        />
 
     </div>
 </template>
