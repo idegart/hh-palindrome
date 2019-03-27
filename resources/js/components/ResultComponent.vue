@@ -1,7 +1,7 @@
 <template>
     <div>
 
-        <span>{{ leftPart }}</span><span style="color: red; background-color: yellow">{{ palindrome }}</span><span>{{ rightPart }}</span>
+        <span>{{ leftPart }}</span><span class="palindrome">{{ palindrome }}</span><span>{{ rightPart }}</span>
 
     </div>
 </template>
@@ -42,12 +42,19 @@
             },
 
             rightPart () {
-                return this.q.slice(-(this.q.length - this.result.end - 1))
+                if (this.result.end < this.q.length - 1) {
+                    return this.q.slice(-(this.q.length - this.result.end - 1))
+                }
+
+                return null
             }
         }
     }
 </script>
 
 <style scoped>
-
+    .palindrome {
+        color: red;
+        background-color: yellow
+    }
 </style>

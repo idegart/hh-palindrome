@@ -9,6 +9,12 @@ use App\Models\Palindrome;
 
 class PalindromeController extends Controller
 {
+    /**
+     * Поиск палиндромов в строке
+     *
+     * @param SearchRequest $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
     public function search(SearchRequest $request)
     {
         $validated = $request->validated();

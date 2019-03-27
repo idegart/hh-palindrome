@@ -3,10 +3,15 @@
 
         <div v-if="results.length">
 
-            <result-component v-for="(result, index) in results"
-                              :key="index"
-                              :q="q"
-                              :result="result" />
+            <ul>
+                <li v-for="(result, index) in results"
+                    :key="index">
+
+                    <result-component :q="q"
+                                      :result="result" />
+
+                </li>
+            </ul>
 
         </div>
 

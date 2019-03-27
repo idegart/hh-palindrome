@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<div id="app" class="container vh-100 d-flex align-items-center justify-content-center">
+<div id="app" class="container d-flex align-items-center justify-content-center min-vh-100 p-3">
 
     <div class="row w-100 justify-content-center">
         <div class="col-12 col-md-6">

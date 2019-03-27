@@ -1,8 +1,9 @@
 <template>
-    <form @submit.prevent="submitForm">
+    <form @submit.prevent="toSearch">
         <div class="input-group">
             <input type="text"
                    v-model="q"
+                   @input="onInput"
                    :readonly="loading"
                    :class="`form-control ${$v.q.$dirty ? $v.q.$error ? 'is-invalid' : 'is-valid' : ''}`"
                    placeholder="Введите Вашу строку">
@@ -23,6 +24,8 @@
 </template>
 
 <script>
+    import { debounce } from 'lodash'
+
     import { validationMixin } from 'vuelidate'
     import { required, minLength, maxLength } from 'vuelidate/lib/validators'
 
@@ -47,7 +50,7 @@
         },
 
         methods: {
-            submitForm () {
+            toSearch () {
                 this.$v.$touch()
 
                 if (this.$v.$invalid) {
@@ -67,7 +70,11 @@
                     .catch(() => {
                         this.loading = false
                     })
-            }
+            },
+
+            onInput: debounce(function () {
+                this.toSearch()
+            }, 500)
         },
     }
 </script>
