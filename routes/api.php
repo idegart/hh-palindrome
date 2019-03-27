@@ -1,3 +1,3 @@
 <?php
 
-Route::post('/palindrome', 'API\PalindromeController@search');
+Route::post('/palindrome', 'API\PalindromeController@search')->name('palindrome.search');

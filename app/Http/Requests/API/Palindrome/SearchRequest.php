@@ -16,7 +16,7 @@ class SearchRequest extends FormRequest
         return [
             'q' => [
                 'string',
-                'min:1',
+                'min:2',
                 'max:300'
             ]
         ];
