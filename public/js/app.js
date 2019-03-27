@@ -1738,8 +1738,13 @@ __webpack_require__.r(__webpack_exports__);
         q: this.q
       }).then(function (_ref) {
         var data = _ref.data;
+        _this.loading = false;
 
         _this.$emit('updateResults', data.data);
+
+        _this.$emit('updateQ', _this.q);
+      }).catch(function () {
+        _this.loading = false;
       });
     }
   }
@@ -1760,12 +1765,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ResultComponent",
   props: {
+    q: {
+      type: String,
+      required: true
+    },
     result: {
       type: Object,
       required: true
+    }
+  },
+  data: function data() {
+    return {
+      overWriteStyle: {
+        color: 'red',
+        backgroundColor: 'yellow'
+      }
+    };
+  },
+  computed: {
+    leftPart: function leftPart() {
+      if (this.result.start > 0) {
+        return this.q.slice(0, this.result.start);
+      }
+
+      return null;
+    },
+    palindrome: function palindrome() {
+      return this.q.slice(this.result.start, this.result.end + 1);
+    },
+    rightPart: function rightPart() {
+      return this.q.slice(-(this.q.length - this.result.end - 1));
     }
   }
 });
@@ -1800,6 +1836,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ResultsListComponent",
@@ -1807,6 +1844,10 @@ __webpack_require__.r(__webpack_exports__);
     ResultComponent: _ResultComponent__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
+    q: {
+      type: String,
+      required: true
+    },
     results: {
       type: Array | null,
       required: true
@@ -1842,12 +1883,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "SearchComponent",
   data: function data() {
     return {
+      q: '',
       results: null
     };
   },
@@ -1858,6 +1902,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     setResults: function setResults(results) {
       this.results = results;
+    },
+    setQ: function setQ(q) {
+      this.q = q;
     }
   }
 });
@@ -36996,7 +37043,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c("div", [
+    _c("span", [_vm._v(_vm._s(_vm.leftPart))]),
+    _c(
+      "span",
+      { staticStyle: { color: "red", "background-color": "yellow" } },
+      [_vm._v(_vm._s(_vm.palindrome))]
+    ),
+    _c("span", [_vm._v(_vm._s(_vm.rightPart))])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37028,7 +37083,7 @@ var render = function() {
               _vm._l(_vm.results, function(result, index) {
                 return _c("result-component", {
                   key: index,
-                  attrs: { result: result }
+                  attrs: { q: _vm.q, result: result }
                 })
               }),
               1
@@ -37069,12 +37124,12 @@ var render = function() {
       _c("input-component", {
         ref: "inputComponent",
         staticClass: "w-100",
-        on: { updateResults: _vm.setResults }
+        on: { updateResults: _vm.setResults, updateQ: _vm.setQ }
       }),
       _vm._v(" "),
       _c("results-list-component", {
         staticClass: "mt-3",
-        attrs: { results: _vm.results }
+        attrs: { results: _vm.results, q: _vm.q }
       })
     ],
     1

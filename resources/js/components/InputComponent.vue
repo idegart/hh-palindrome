@@ -60,7 +60,12 @@
                     q: this.q
                 })
                     .then(({data}) => {
+                        this.loading = false
                         this.$emit('updateResults', data.data)
+                        this.$emit('updateQ', this.q)
+                    })
+                    .catch(() => {
+                        this.loading = false
                     })
             }
         },

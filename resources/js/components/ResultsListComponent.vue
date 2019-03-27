@@ -5,6 +5,7 @@
 
             <result-component v-for="(result, index) in results"
                               :key="index"
+                              :q="q"
                               :result="result" />
 
         </div>
@@ -22,6 +23,10 @@
         name: "ResultsListComponent",
         components: {ResultComponent},
         props: {
+            q: {
+                type: String,
+                required: true,
+            },
             results: {
                 type: Array|null,
                 required: true

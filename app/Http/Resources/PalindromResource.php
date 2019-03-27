@@ -14,8 +14,6 @@ class PalindromResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-
-        ];
+        return parent::toArray($request);
     }
 }

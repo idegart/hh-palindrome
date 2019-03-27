@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Requests\API\Palindrome\SearchRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PalindromResource;
+use App\Models\Palindrome;
 
 class PalindromeController extends Controller
 {
@@ -14,8 +15,8 @@ class PalindromeController extends Controller
 
         $q = $validated['q'];
 
+        $palindromes = Palindrome::palindromesOfString($q);
 
-
-        return new PalindromResource([]);
+        return PalindromResource::collection($palindromes);
     }
 }

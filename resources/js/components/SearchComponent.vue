@@ -3,10 +3,12 @@
 
         <input-component ref="inputComponent"
                          @updateResults="setResults"
+                         @updateQ="setQ"
                          class="w-100"
         />
 
         <results-list-component :results="results"
+                                :q="q"
                                 class="mt-3"
         />
 
@@ -21,6 +23,7 @@
         name: "SearchComponent",
 
         data: () => ({
+            q: '',
             results: null,
         }),
 
@@ -32,6 +35,10 @@
         methods: {
             setResults (results) {
                 this.results = results
+            },
+
+            setQ (q) {
+                this.q = q
             }
         },
     }
